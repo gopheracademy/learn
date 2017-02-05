@@ -1,12 +1,28 @@
 <html>
 <head>
   <meta charset="utf-8">
-  <title>Buffalo - Learn</title>
+  <title>GopherAcademy - Learn</title>
   <link rel="stylesheet" href="/assets/application.css" type="text/css" media="all" />
 </head>
 <body>
 
-  <div class="container">
+  {{partial "nav_bar.html"}}
+
+  <div class="container" id="main">
+
+    <div class="row">
+      <div class="col-md-12">
+        {{#each flash as |k messages|}}
+          {{#each messages as |msg|}}
+            <div class="alert alert-{{k}}" role="alert">
+              <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+              {{msg}}
+            </div>
+          {{/each}}
+        {{/each}}
+      </div>
+    </div>
+
     {{ yield }}
   </div>
 

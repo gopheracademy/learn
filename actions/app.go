@@ -7,6 +7,8 @@ import (
 	"github.com/gobuffalo/buffalo/middleware"
 	"github.com/gopheracademy/learn/models"
 	"github.com/markbates/going/defaults"
+
+	"github.com/markbates/goth/gothic"
 )
 
 // ENV is used to help switch settings based on where the
@@ -25,10 +27,19 @@ func App() *buffalo.App {
 		})
 
 		app.Use(middleware.PopTransaction(models.DB))
+		app.Use(setCurrentUser)
+		app.Use(setStripeKeys)
 
 		app.GET("/", HomeHandler)
 
 		app.ServeFiles("/assets", assetsPath())
+		auth := app.Group("/auth")
+		auth.GET("/{provider}", buffalo.WrapHandlerFunc(gothic.BeginAuthHandler))
+		auth.GET("/{provider}/callback", AuthCallback)
+		app.DELETE("/logout", AuthLogout)
+		app.GET("/courses", CoursesIndex)
+		app.GET("/courses/{course_id}", CoursesShow)
+		app.POST("/courses/{course_id}/purchases", authorize(PurchasesCreate))
 	}
 
 	return app
