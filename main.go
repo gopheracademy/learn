@@ -7,11 +7,14 @@ import (
 	"os"
 
 	"github.com/gopheracademy/learn/actions"
+	"github.com/gopheracademy/learn/models"
 	"github.com/markbates/going/defaults"
 )
 
 func main() {
 	port := defaults.String(os.Getenv("PORT"), "3000")
+	baseURL := defaults.String(os.Getenv("CMS_URL"), "https://cms.gopheracademy.com")
+	models.BaseURL = baseURL
 	log.Printf("Starting learn on port %s\n", port)
 	log.Fatal(http.ListenAndServe(fmt.Sprintf(":%s", port), actions.App()))
 }

@@ -1,9 +1,14 @@
+<div class="container">
+	<div class="row">
+		<div class="col-md-12">
 <h1>Courses</h1>
 
 {{#each courses as |course|}}
 <h2>{{course.Title}}</h2>
 {{markdown course.Description}}
 {{#if current_user}}
+{{#each current_user.Purchases as |purchase| }}
+{{#eq purchase.CourseID.String course.ID.String}} <a href="/classroom"><button type="button" class="btn btn-primary">View Course</button></a>{{ else }}
 <form action="/courses/{{course.ID}}/purchases" method="POST">
   <script
     src="https://checkout.stripe.com/checkout.js" class="stripe-button"
@@ -19,5 +24,13 @@
     >
   </script>
 </form>
-{{/if}}
+{{/eq}}
 {{/each}}
+{{ else }}
+<div class="alert alert-danger">
+  Must Be Logged In to Purchase
+</div>{{/if}}
+{{/each}}
+</div>
+</div>
+</div>

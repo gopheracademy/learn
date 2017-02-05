@@ -40,6 +40,7 @@ func App() *buffalo.App {
 		app.GET("/courses", CoursesIndex)
 		app.GET("/courses/{course_id}", CoursesShow)
 		app.POST("/courses/{course_id}/purchases", authorize(PurchasesCreate))
+		app.GET("/classroom", ClassroomShow)
 	}
 
 	return app

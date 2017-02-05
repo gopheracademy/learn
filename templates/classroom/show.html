@@ -1,0 +1,113 @@
+<div class="container-fluid">
+	<div class="row-fluid">
+		<div class="col-md-2">
+		<h3>Modules</h3>
+            	<div class="panel-group" id="accordion">
+                	<div class="panel panel-default">
+  			{{#each course.ModuleList as |module|}}
+                    		<div class="panel-heading">
+                        		<h4 class="panel-title">
+						<a data-toggle="collapse" data-parent="#accordion" href="#module-{{module.Module.ID}}"><span class="glyphicon glyphicon-folder-close">
+				    		</span>&nbsp;{{module.Module.Title}}</a>
+                        		</h4>
+				</div><!-- panel heading -->
+		    		<div id="module-{{module.Module.ID}}" class="panel-collapse {{#eq module.Module.ID mid}}in{{/eq}}{{#neq module.Module.ID mid}}collapse{{/neq}}">
+                        		<div class="panel-body">
+                            			<table class="table">
+                                			<tr>
+                                    				<td>
+									<span class="glyphicon glyphicon-pencil text-primary"></span>&nbsp;{{#neq lesson.ID lid}}<a href="/classroom?mid={{module.Module.ID}}">{{/neq}}<span class="{{#eq lesson.ID lid}}text-danger{{/eq}}">Start Here</span>{{#neq lesson.ID lid}}</a>{{/neq}}
+				    				</td>
+                        				</tr>
+  						{{#each module.LessonList as |lesson|}}
+                                			<tr>
+                                    				<td>
+									<span class="glyphicon glyphicon-pencil text-primary"></span>&nbsp;{{#neq lesson.ID lid}}<a href="/classroom?mid={{module.Module.ID}}&lid={{lesson.ID}}">{{/neq}}<span class="{{#eq lesson.ID lid}}text-danger{{/eq}}">{{lesson.Title}}</span>{{#neq lesson.ID lid}}</a>{{/neq}}
+				    				</td>
+                        				</tr>
+						{{/each}}
+                            			</table>
+                        		</div>
+                    		</div>
+
+ {{/each}}
+                	</div>
+
+		  </div>
+		</div> <!-- span2 -->
+
+
+
+		<div class="col-md-10">
+<nav aria-label="Page navigation example">
+  <ul class="pagination">
+    <li class="page-item">
+	    <a class="page-link" href="{{nextLink}}" aria-label="Previous">
+        <span aria-hidden="true">&laquo;</span>
+        <span class="sr-only">Previous</span>
+      </a>
+    </li>
+    <li class="page-item">
+	    <a class="page-link" href="{{prevLink}}" aria-label="Next">
+        <span aria-hidden="true">&raquo;</span>
+        <span class="sr-only">Next</span>
+      </a>
+    </li>
+  </ul>
+</nav>
+
+			<h4>{{course.Course.Title}} </h4>
+			{{#neq mid 0 }}<h3>{{mdl.Module.Title}}</h3> {{/neq}}
+			<ul class="nav nav-tabs" id="contentTabs">
+				{{#if hasVideo}}<li class=""><a href="#video" data-toggle="tab">Video</a></li>{{/if}}
+				{{#if hasLesson}}<li class=""><a href="#lesson" data-toggle="tab">Lesson</a></li>{{/if}}
+				{{#neq lsn nil}}{{#neq lsn.GithubLesson ""}}<li class=""><a href="#exercise" data-toggle="tab">Exercise</a></li>{{/neq}}{{/neq}}
+			</ul>
+
+				<div class="tab-content" id="tabContents">
+					{{#if hasVideo}}<div class="tab-pane" id="video"> 
+				<div id="lesson-video"></div>
+
+				<script src="https://player.vimeo.com/api/player.js"></script>
+<script>
+    var options = {
+        id: 201926132,
+        width: 640,
+        loop: false
+    };
+
+    var player = new Vimeo.Player('lesson-video', options);
+
+    player.setVolume(3);
+
+    player.on('play', function() {
+        console.log('played the video!');
+    });
+</script>
+					</div>{{/if}} 
+					{{#if hasLesson}}<div class="tab-pane" id="lesson"> 
+					{{#neq lid 0}}
+					<br/><br/>
+					{{markdown lsn.Content}}
+					{{/neq}}
+					<br/><br/>
+					</div> {{/if}}
+					{{#neq lsn nil}}{{#neq lsn.GithubLesson ""}}<div class="tab-pane" id="exercise">
+						<br/><br/>
+						<h4>Source Code: {{lsn.GithubLesson}}</h4><br/><br/>
+						<h5>Directions:</h5> <code>go get -u {{lsn.GithubLesson}} </code><br/>
+							<code>cd $GOPATH/src/{{lsn.GithubLesson}} </code><br/><br/>
+						<h4>You can use our web based IDE if you have Docker installed.</h4>
+						<blockquote>
+						<span>In the root of the <strong>gopheracademy/training</strong> repository type:</span><br/>
+						<code>./startIDE.sh</code><br/>
+						</blockquote>
+					<br/><br/>
+					{{markdown lsn.Content}}
+					<br/><br/>
+					</div> {{/neq}} {{/neq}}
+			</div>          
+		</div> <!-- span10 -->
+	</div> <!-- row -->
+</div> <!-- container -->
+

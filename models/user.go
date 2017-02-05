@@ -58,3 +58,20 @@ func (u *User) ValidateSave(tx *pop.Connection) (*validate.Errors, error) {
 func (u *User) ValidateUpdate(tx *pop.Connection) (*validate.Errors, error) {
 	return validate.NewErrors(), nil
 }
+
+func (u User) Bought(cid string) bool {
+	var p Purchase
+	err := DB.Where("user_id=? and course_id=?", u.ID, cid).First(&p)
+	if err == nil {
+		if p.ID.String() != "" {
+			return true
+		}
+	}
+	return false
+}
+
+func (u User) Purchases() []Purchase {
+	var p Purchases
+	DB.Where("user_id=?", u.ID).All(&p)
+	return p
+}

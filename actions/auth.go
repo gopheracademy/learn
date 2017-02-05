@@ -111,6 +111,7 @@ func setCurrentUser(next buffalo.Handler) buffalo.Handler {
 				c.Set("current_user_id", u.ID)
 				c.Set("current_user", u)
 			}
+
 		}
 		return next(c)
 	}
