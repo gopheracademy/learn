@@ -56,8 +56,8 @@
   </ul>
 </nav>
 
-			<h4>{{course.Course.Title}} </h4>
-			{{#neq mid 0 }}<h3>{{mdl.Module.Title}}</h3> {{/neq}}
+			<h4><span class="fa fa-book"></span>&nbsp;{{course.Course.Title}} </h4>
+			{{#neq mid 0 }}<h3><span class="fa fa-bookmark-o"></span>&nbsp;{{mdl.Module.Title}}</h3> {{/neq}}
 			<ul class="nav nav-tabs" id="contentTabs">
 				{{#if hasVideo}}<li class=""><a href="#video" data-toggle="tab">Video</a></li>{{/if}}
 				{{#if hasLesson}}<li class=""><a href="#lesson" data-toggle="tab">Lesson</a></li>{{/if}}
