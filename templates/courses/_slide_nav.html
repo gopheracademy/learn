@@ -1,0 +1,16 @@
+<div class="row">
+  <div class="col-md-6">
+    {{#if @first}}
+    <a class="btn btn-sm btn-default" disabled>Previous</a>
+    {{else}}
+    <a class="btn btn-sm btn-info slide-previous">Previous</a>
+    {{/if}}
+  </div>
+  <div class="col-md-6">
+    {{#if @last}}
+    <a class="btn btn-sm btn-default pull-right" disabled>Next</a>
+    {{else}}
+    <a class="btn btn-sm btn-info slide-next pull-right">Next</a>
+    {{/if}}
+  </div>
+</div>

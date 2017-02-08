@@ -16,11 +16,11 @@
         </div>
         <div id="collapse{{@index}}" class="panel-collapse collapse " role="tabpanel" aria-labelledby="heading{{@index}}">
           <div class="panel-body">
-            <ul class="list-unstyled">
+            <ol class="">
               {{#each m.Slides as |slide|}}
               <li><a href="#" class="slide-selector" data-index="{{@index}}" data-module="{{m.Slug}}">{{slide.Title}}</a></li>
               {{/each}}
-            </ul>
+            </ol>
           </div>
         </div>
       </div>
@@ -33,26 +33,12 @@
     <div id="{{m.Slug}}">
       {{#each m.Slides as |slide| }}
       <div class="slide" data-index="{{@index}}" data-module="{{m.Slug}}" style="display: none">
+            {{partial "courses/slide_nav.html"}}
           <h1>{{slide.Title}}</h1>
           <div>
             {{markdown slide.Content}}
           </div>
-          <div class="row">
-            <div class="col-md-6">
-              {{#if @first}}
-              <a class="btn btn-default" disabled>Previous</a>
-              {{else}}
-              <a class="btn btn-info slide-previous">Previous</a>
-              {{/if}}
-            </div>
-            <div class="col-md-6">
-              {{#if @last}}
-              <a class="btn btn-default pull-right" disabled>Next</a>
-              {{else}}
-              <a class="btn btn-info slide-next pull-right">Next</a>
-              {{/if}}
-            </div>
-          </div>
+            {{partial "courses/slide_nav.html"}}
         </div>
       {{/each}}
     </div>
