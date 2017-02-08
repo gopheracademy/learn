@@ -1,24 +1,26 @@
 <h1>Courses</h1>
 
 {{#each courses as |course|}}
-<h2>{{course.Title}}</h2>
+<h2><a href="{{course.URL}}">{{course.Title}}</a></h2>
 {{markdown course.Description}}
 {{#if current_user}}
-<form action="/courses/{{course.ID}}/purchases" method="POST">
-  <script
-    src="https://checkout.stripe.com/checkout.js" class="stripe-button"
-                                                  data-key="{{stripe_pk}}"
-                                                  data-amount="{{course.Price}}"
-                                                  data-name="{{course.Title}}"
-                                                  data-description="{{course.Description}}"
-    data-image="/assets/images/logo.svg"
-    data-locale="auto"
-    data-label="Buy Now! - {{currency course.Price}}"
-    data-panel-label="Buy Now! - \{{amount}}"
-    data-email="{{current_user.Email}}"
-    >
-  </script>
-</form>
+  {{#unless course.Purchased}}
+  <form action="/courses/{{course.ID}}/purchases" method="POST">
+    <script
+      src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                                                    data-key="{{stripe_pk}}"
+                                                    data-amount="{{course.Price}}"
+                                                    data-name="{{course.Title}}"
+                                                    data-description="{{course.Description}}"
+      data-image="/assets/images/logo.svg"
+      data-locale="auto"
+      data-label="Buy Now! - {{currency course.Price}}"
+      data-panel-label="Buy Now! - \{{amount}}"
+      data-email="{{current_user.Email}}"
+      >
+    </script>
+  </form>
+  {{/unless}}
 {{else}}
 <button class="btn btn-info" disabled>{{currency course.Price}}</button>
 <em>You must be logged into to buy this course</em>

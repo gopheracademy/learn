@@ -9,10 +9,14 @@ import (
 // CoursesIndex default implementation.
 func CoursesIndex(c buffalo.Context) error {
 	tx := c.Value("tx").(*pop.Connection)
-	courses := &models.Courses{}
-	err := tx.All(courses)
+	courses := models.Courses{}
+	err := tx.All(&courses)
 	if err != nil {
 		return err
+	}
+	if c.Value("current_user") != nil {
+		cu := c.Value("current_user").(*models.User)
+		courses.MarkPurchases(tx, cu)
 	}
 	c.Set("courses", courses)
 	return c.Render(200, r.HTML("courses/index.html"))
@@ -26,6 +30,9 @@ func CoursesShow(c buffalo.Context) error {
 	err := tx.Find(course, c.Param("course_id"))
 	if err != nil {
 		return err
+	}
+	if c.Value("current_user") != nil {
+		course.MarkAsPurchased(tx, c.Value("current_user").(*models.User))
 	}
 	c.Set("course", course)
 	// TODO: only pull the modules associated with this course

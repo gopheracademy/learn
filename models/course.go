@@ -2,6 +2,7 @@ package models
 
 import (
 	"encoding/json"
+	"fmt"
 	"time"
 
 	"github.com/markbates/pop"
@@ -17,12 +18,23 @@ type Course struct {
 	Title       string    `json:"title" db:"title"`
 	Description string    `json:"description" db:"description"`
 	Price       int       `json:"price" db:"price"`
+	Purchased   bool      `json:"-" db:"-"`
 }
 
 // String is not required by pop and may be deleted
 func (c Course) String() string {
 	b, _ := json.Marshal(c)
 	return string(b)
+}
+
+func (c Course) URL() string {
+	return fmt.Sprintf("/courses/%s", c.ID)
+}
+
+func (c *Course) MarkAsPurchased(tx *pop.Connection, u *User) error {
+	b, err := tx.Where("course_id = ? and user_id = ?", c.ID, u.ID).Exists("purchases")
+	c.Purchased = b
+	return err
 }
 
 // Courses is not required by pop and may be deleted
@@ -32,6 +44,17 @@ type Courses []Course
 func (c Courses) String() string {
 	b, _ := json.Marshal(c)
 	return string(b)
+}
+
+func (cc Courses) MarkPurchases(tx *pop.Connection, u *User) error {
+	for i, c := range cc {
+		err := c.MarkAsPurchased(tx, u)
+		if err != nil {
+			return err
+		}
+		cc[i] = c
+	}
+	return nil
 }
 
 // Validate gets run everytime you call a "pop.Validate" method.
