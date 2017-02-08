@@ -29,8 +29,13 @@ $(() => {
   function show(module, index) {
     $(".slide").hide();
     window.location.hash = `#${module}-${index}`;
-    $(`#${module} [data-index='${index}']`).show();
-    $(`#collapse${module}`).collapse("show");
+    let $el = $(`#${module} [data-index='${index}']`)
+    if ($el.length) {
+      $el.show();
+      $(`#collapse${module}`).collapse("show");
+    } else {
+      $("#welcome").show();
+    }
   }
 
   $(".highlight pre").each(function(i, block) {

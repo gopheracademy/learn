@@ -1,6 +1,5 @@
 <h1>{{course.Title}}</h1>
 
-{{markdown course.Description}}
 
 <div class="row">
   <div class="col-md-3">
@@ -29,19 +28,27 @@
   </div>
 
   <div class="col-md-9">
-    {{#each modules as |m|}}
-    <div id="{{m.Slug}}">
-      {{#each m.Slides as |slide| }}
-      <div class="slide" data-index="{{@index}}" data-module="{{m.Slug}}" style="display: none">
-            {{partial "courses/slide_nav.html"}}
-          <h1>{{slide.Title}}</h1>
-          <div>
-            {{markdown slide.Content}}
-          </div>
-            {{partial "courses/slide_nav.html"}}
-        </div>
-      {{/each}}
+    <div class="slide" id="welcome">
+      <h1>{{course.Title}}</h1>
+      {{markdown course.Description}}
     </div>
-    {{/each}}
+    {{#if course.Purchased}}
+      {{#each modules as |m|}}
+      <div id="{{m.Slug}}">
+        {{#each m.Slides as |slide| }}
+        <div class="slide" data-index="{{@index}}" data-module="{{m.Slug}}" style="display: none">
+            {{partial "courses/slide_nav.html"}}
+            <h1>{{slide.Title}}</h1>
+            <div>
+              {{markdown slide.Content}}
+            </div>
+            {{partial "courses/slide_nav.html"}}
+          </div>
+        {{/each}}
+      </div>
+      {{/each}}
+    {{else}}
+      {{partial "courses/buy.html"}}
+    {{/if}}
   </div>
 </div>
