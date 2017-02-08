@@ -28,12 +28,18 @@ func App() *buffalo.App {
 
 		app.Use(middleware.PopTransaction(models.DB))
 		app.Use(setCurrentUser)
+		app.Use(trackLastUrl)
 		app.Use(setStripeKeys)
 
 		app.GET("/", HomeHandler)
 
 		app.ServeFiles("/assets", assetsPath())
 		auth := app.Group("/auth")
+		auth.Middleware.Replace(trackLastUrl, func(next buffalo.Handler) buffalo.Handler {
+			return func(c buffalo.Context) error {
+				return next(c)
+			}
+		})
 		auth.GET("/{provider}", buffalo.WrapHandlerFunc(gothic.BeginAuthHandler))
 		auth.GET("/{provider}/callback", AuthCallback)
 		app.DELETE("/logout", AuthLogout)
@@ -43,4 +49,18 @@ func App() *buffalo.App {
 	}
 
 	return app
+}
+
+func trackLastUrl(next buffalo.Handler) buffalo.Handler {
+	return func(c buffalo.Context) error {
+		req := c.Request()
+		if req.Method == "GET" {
+			c.Session().Set("last_url", req.URL.Path)
+			err := c.Session().Save()
+			if err != nil {
+				return err
+			}
+		}
+		return next(c)
+	}
 }

@@ -19,5 +19,8 @@
     >
   </script>
 </form>
+{{else}}
+<button class="btn btn-info" disabled>{{currency course.Price}}</button>
+<em>You must be logged into to buy this course</em>
 {{/if}}
 {{/each}}

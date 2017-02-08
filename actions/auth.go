@@ -72,7 +72,7 @@ func AuthCallback(c buffalo.Context) error {
 
 // AuthLogout default implementation.
 func AuthLogout(c buffalo.Context) error {
-	c.Session().Delete("current_user_id")
+	c.Session().Clear()
 	err := c.Session().Save()
 	if err != nil {
 		return err
@@ -89,6 +89,10 @@ func login(c buffalo.Context, u *models.User) error {
 	}
 
 	c.Flash().Add("success", "You have been successfully logged in!")
+	lu := c.Session().Get("last_url")
+	if lu != nil {
+		return c.Redirect(302, lu.(string))
+	}
 	return c.Redirect(302, "/")
 }
 
