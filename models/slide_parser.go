@@ -20,13 +20,13 @@ func (sp *SlideParser) Parse() error {
 		return errors.WithStack(err)
 	}
 
-	var foundTitle bool
+	var parsedFirstSlide bool
 	lines := bytes.Split(md, []byte("\n"))
 	h1 := []byte("# ")
 	sep := []byte("---")
 
 	for i := 0; i < len(lines); i++ {
-		s := Slide{MetaData: map[string]string{}}
+		s := Slide{MetaData: MetaData{}}
 		line := lines[i]
 		// found a new slide:
 		for {
@@ -37,7 +37,9 @@ func (sp *SlideParser) Parse() error {
 			// read the metadata:
 			d := bytes.Split(line, []byte(":"))
 			if len(d) >= 2 {
-				s.MetaData[string(d[0])] = string(d[1])
+				k := bytes.TrimSpace(d[0])
+				v := bytes.TrimSpace(d[1])
+				s.MetaData[string(k)] = string(v)
 			}
 			i++
 			line = lines[i]
@@ -46,9 +48,10 @@ func (sp *SlideParser) Parse() error {
 		// it's an h1 so it's a new slide
 		t := string(bytes.TrimPrefix(line, h1))
 		s.Title = t
-		if !foundTitle {
+		if !parsedFirstSlide {
 			sp.Module.Title = t
-			foundTitle = true
+			sp.Module.MetaData = s.MetaData
+			parsedFirstSlide = true
 		}
 		bb := &bytes.Buffer{}
 		for {
@@ -77,7 +80,8 @@ func NewParser(r io.Reader) SlideParser {
 	return SlideParser{
 		Reader: r,
 		Module: Module{
-			Slides: Slides{},
+			Slides:   Slides{},
+			MetaData: MetaData{},
 		},
 	}
 }

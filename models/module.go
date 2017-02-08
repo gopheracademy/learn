@@ -25,6 +25,7 @@ type Module struct {
 	Title     string    `json:"title" db:"title"`
 	Path      string    `json:"path" db:"path"`
 	Slug      string    `json:"slug" db:"slug"`
+	MetaData  MetaData  `json:"metadata" db:"metadata"`
 	Slides    Slides    `json:"slides" db:"slides"`
 }
 

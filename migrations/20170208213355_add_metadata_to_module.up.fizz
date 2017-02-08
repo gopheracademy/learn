@@ -1,0 +1,1 @@
+add_column("modules", "metadata", "text", {"default": "{}"})
