@@ -10,6 +10,7 @@ import (
 
 var _ = Desc("pull:modules", "Runs a git pull origin master on the `models.ModulesPath` repo")
 var _ = Add("pull:modules", func(c *Context) error {
+	// TODO: clone the repo if it hasn't been already
 	err := os.Chdir(models.ModulesPath)
 	if err != nil {
 		return err
