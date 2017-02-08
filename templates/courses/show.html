@@ -1,3 +1,61 @@
 <h1>{{course.Title}}</h1>
 
 {{markdown course.Description}}
+
+<div class="row">
+  <div class="col-md-3">
+    {{#each modules as |m|}}
+    <div class="panel-group" id="accordion-{{@index}}" role="tablist" aria-multiselectable="true">
+      <div class="panel panel-default">
+        <div class="panel-heading" role="tab" id="heading{{@index}}">
+          <h4 class="panel-title">
+            <a role="button" data-toggle="collapse" data-parent="#accordion-{{@index}}" href="#collapse{{@index}}" aria-expanded="true" aria-controls="collapse{{@index}}">
+                {{m.Title}}
+              </a>
+          </h4>
+        </div>
+        <div id="collapse{{@index}}" class="panel-collapse collapse " role="tabpanel" aria-labelledby="heading{{@index}}">
+          <div class="panel-body">
+            <ul class="list-unstyled">
+              {{#each m.Slides as |slide|}}
+              <li><a href="#" class="slide-selector" data-index="{{@index}}" data-module="{{m.Slug}}">{{slide.Title}}</a></li>
+              {{/each}}
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+    {{/each}}
+  </div>
+
+  <div class="col-md-9">
+    {{#each modules as |m|}}
+    <div id="{{m.Slug}}">
+      {{#each m.Slides as |slide| }}
+      <div class="slide" data-index="{{@index}}" data-module="{{m.Slug}}" style="display: none">
+          <h1>{{slide.Title}}</h1>
+          <div>
+            {{markdown slide.Content}}
+          </div>
+          <div class="row">
+            <div class="col-md-6">
+              {{#if @first}}
+              <a class="btn btn-default" disabled>Previous</a>
+              {{else}}
+              <a class="btn btn-info slide-previous">Previous</a>
+              {{/if}}
+            </div>
+            <div class="col-md-6">
+              {{#if @last}}
+              <a class="btn btn-default pull-right" disabled>Next</a>
+              {{else}}
+              <a class="btn btn-info slide-next pull-right">Next</a>
+              {{/if}}
+            </div>
+          </div>
+        </div>
+      {{/each}}
+    </div>
+    {{/each}}
+  </div>
+</div>
