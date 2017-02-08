@@ -28,14 +28,14 @@ func App() *buffalo.App {
 
 		app.Use(middleware.PopTransaction(models.DB))
 		app.Use(setCurrentUser)
-		app.Use(trackLastUrl)
+		app.Use(trackLastURL)
 		app.Use(setStripeKeys)
 
 		app.GET("/", HomeHandler)
 
 		app.ServeFiles("/assets", assetsPath())
 		auth := app.Group("/auth")
-		auth.Middleware.Replace(trackLastUrl, func(next buffalo.Handler) buffalo.Handler {
+		auth.Middleware.Replace(trackLastURL, func(next buffalo.Handler) buffalo.Handler {
 			return func(c buffalo.Context) error {
 				return next(c)
 			}
@@ -51,7 +51,7 @@ func App() *buffalo.App {
 	return app
 }
 
-func trackLastUrl(next buffalo.Handler) buffalo.Handler {
+func trackLastURL(next buffalo.Handler) buffalo.Handler {
 	return func(c buffalo.Context) error {
 		req := c.Request()
 		if req.Method == "GET" {
