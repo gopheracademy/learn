@@ -89,7 +89,10 @@ func RebuildModules() error {
 			return err
 		}
 		// get rid of any modules in the database that no longer exist in the repo
-		return tx.RawQuery("delete from modules where id not in (?)", ids...).Exec()
+		if len(ids) > 0 {
+			return tx.RawQuery("delete from modules where id not in (?)", ids...).Exec()
+		}
+		return nil
 	})
 }
 
