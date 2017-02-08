@@ -35,7 +35,7 @@ func CoursesShow(c buffalo.Context) error {
 	}
 	c.Set("course", course)
 	modules := models.Modules{}
-	err = tx.BelongsToThrough(course, models.CourseModule{}).All(&modules)
+	err = tx.BelongsToThrough(course, models.CourseModule{}).Order("course_modules.position asc").All(&modules)
 	if err != nil {
 		return err
 	}
