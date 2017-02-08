@@ -22,9 +22,16 @@ $(() => {
   function advance(s, offest) {
     let index = s.data("index");
     let module = s.data("module");
-    $(".slide").hide();
-    $(`#${module} [data-index='${index + offest}']`).show();
+    index = index + offest;
+    show(module, index);
   };
+
+  function show(module, index) {
+    $(".slide").hide();
+    window.location.hash = `#${module}-${index}`;
+    $(`#${module} [data-index='${index}']`).show();
+    $(`#collapse${module}`).collapse("show");
+  }
 
   $(".highlight pre").each(function(i, block) {
     let html = block.innerHTML;
@@ -32,5 +39,12 @@ $(() => {
     block.innerHTML = html;
     hljs.highlightBlock(block);
   });
+
+  let hash = window.location.hash;
+  if (hash != "") {
+    let p = hash.split("-");
+    $(".collapse").collapse("hide");
+    show(p[0].replace("#", ""), p[1]);
+  }
 
 });

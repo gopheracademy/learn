@@ -5,20 +5,20 @@
 <div class="row">
   <div class="col-md-3">
     {{#each modules as |m|}}
-    <div class="panel-group" id="accordion-{{@index}}" role="tablist" aria-multiselectable="true">
+    <div class="panel-group" id="accordion-{{m.Slug}}" role="tablist" aria-multiselectable="true">
       <div class="panel panel-default">
-        <div class="panel-heading" role="tab" id="heading{{@index}}">
+        <div class="panel-heading" role="tab" id="heading{{m.Slug}}">
           <h4 class="panel-title">
-            <a role="button" data-toggle="collapse" data-parent="#accordion-{{@index}}" href="#collapse{{@index}}" aria-expanded="true" aria-controls="collapse{{@index}}">
-                {{m.Title}}
-              </a>
+            <a role="button" data-toggle="collapse" data-parent="#accordion-{{m.Slug}}" href="#collapse{{m.Slug}}" aria-expanded="true" aria-controls="collapse{{m.Slug}}">
+              {{m.Title}}
+            </a>
           </h4>
         </div>
-        <div id="collapse{{@index}}" class="panel-collapse collapse " role="tabpanel" aria-labelledby="heading{{@index}}">
+        <div id="collapse{{m.Slug}}" class="panel-collapse collapse " role="tabpanel" aria-labelledby="heading{{m.Slug}}">
           <div class="panel-body">
             <ol class="">
               {{#each m.Slides as |slide|}}
-              <li><a href="#" class="slide-selector" data-index="{{@index}}" data-module="{{m.Slug}}">{{slide.Title}}</a></li>
+              <li><a href="#{{m.Slug}}-{{@index}}" class="slide-selector" data-index="{{@index}}" data-module="{{m.Slug}}">{{slide.Title}}</a></li>
               {{/each}}
             </ol>
           </div>
