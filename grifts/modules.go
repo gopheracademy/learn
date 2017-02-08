@@ -8,6 +8,7 @@ import (
 	. "github.com/markbates/grift/grift"
 )
 
+var _ = Desc("pull:modules", "Runs a git pull origin master on the `models.ModulesPath` repo")
 var _ = Add("pull:modules", func(c *Context) error {
 	err := os.Chdir(models.ModulesPath)
 	if err != nil {
@@ -19,6 +20,7 @@ var _ = Add("pull:modules", func(c *Context) error {
 	return cmd.Run()
 })
 
+var _ = Desc("build:modules", "Rebuilds the modules in the database from the files at `models.ModulesPath`")
 var _ = Add("build:modules", func(c *Context) error {
 	return models.RebuildModules()
 })

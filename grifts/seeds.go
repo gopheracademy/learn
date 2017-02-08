@@ -8,6 +8,7 @@ import (
 	"github.com/markbates/pop"
 )
 
+var _ = Desc("seed:all", "Updates the git repo, builds the modules, and seeds the courses")
 var _ = Add("seed:all", func(c *Context) error {
 	err := Run("pull:modules", c)
 	if err != nil {
@@ -24,6 +25,7 @@ var _ = Add("seed:all", func(c *Context) error {
 	return nil
 })
 
+var _ = Desc("seed:courses", "Deletes all the courses and purchases in the database and seeds new courses")
 var _ = Add("seed:courses", func(c *Context) error {
 	return models.DB.Transaction(func(tx *pop.Connection) error {
 		for _, x := range []string{"courses", "course_modules", "purchases"} {
