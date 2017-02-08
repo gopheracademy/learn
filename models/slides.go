@@ -6,8 +6,9 @@ import (
 )
 
 type Slide struct {
-	Title   string `json:"title"`
-	Content string `json:"content"`
+	Title    string `json:"title"`
+	Content  string `json:"content"`
+	MetaData map[string]string
 }
 
 type Slides []Slide

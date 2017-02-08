@@ -1,11 +1,9 @@
 package models
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
-	"io/ioutil"
 	"os"
 	"path/filepath"
 	"time"
@@ -99,65 +97,31 @@ func RebuildModules() error {
 func buildModule(tx *pop.Connection, path string, in io.Reader) (Module, error) {
 	root := filepath.Dir(path)
 	fmt.Printf("Found a module at %s\n", root)
+
 	slug := filepath.Base(root)
-	m := Module{Slug: slug, Path: path}
-	b, err := tx.Where("slug = ?", slug).Exists(&m)
+
+	sp := NewParser(in)
+	sp.Module = Module{Slug: slug, Path: path}
+	b, err := tx.Where("slug = ?", slug).Exists(&sp.Module)
 	if err != nil {
-		return m, errors.WithStack(err)
+		return sp.Module, errors.WithStack(err)
 	}
 	if b {
-		err = tx.Where("slug = ?", slug).First(&m)
+		err = tx.Where("slug = ?", slug).First(&sp.Module)
 		if err != nil {
-			return m, errors.WithStack(err)
+			return sp.Module, errors.WithStack(err)
 		}
 	}
 
-	md, err := ioutil.ReadAll(in)
+	err = sp.Parse()
 	if err != nil {
-		return m, errors.WithStack(err)
+		return sp.Module, errors.WithStack(err)
 	}
 
-	var foundTitle bool
-	lines := bytes.Split(md, []byte("\n"))
-	h1 := []byte("# ")
-
-	m.Slides = Slides{}
-
-	for i := 0; i < len(lines); i++ {
-		line := lines[i]
-		if bytes.HasPrefix(line, h1) {
-			// it's an h1 so it's a new slide
-			t := string(bytes.TrimPrefix(line, h1))
-			s := Slide{Title: t}
-			if !foundTitle {
-				m.Title = t
-				foundTitle = true
-			}
-			bb := &bytes.Buffer{}
-			for {
-				// keep reading the contents of this slide
-				i++
-				if i == len(lines) {
-					break
-				}
-				line := lines[i]
-				// found an h1, back up and have a go at the next slide
-				if bytes.HasPrefix(line, h1) {
-					i--
-					break
-				}
-				bb.Write(line)
-				bb.WriteRune('\n')
-			}
-			s.Content = bb.String()
-			m.Slides = append(m.Slides, s)
-		}
-	}
-
-	verrs, err := tx.ValidateAndSave(&m)
+	verrs, err := tx.ValidateAndSave(&sp.Module)
 	if verrs.HasAny() {
-		return m, verrs
+		return sp.Module, verrs
 	}
 
-	return m, errors.WithStack(err)
+	return sp.Module, errors.WithStack(err)
 }
