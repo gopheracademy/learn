@@ -1,0 +1,6 @@
+create_table("course_modules", func(t) {
+	t.Column("id", "uuid", {"primary": true})
+	t.Column("course_id", "uuid", {})
+	t.Column("module_id", "uuid", {})
+	t.Column("position", "integer", {})
+})

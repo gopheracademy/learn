@@ -16,6 +16,8 @@ import (
 	"github.com/satori/go.uuid"
 )
 
+var ModulesPath = envy.Get("MODULES_PATH", filepath.Join(envy.Get("GOPATH", ""), "src", "github.com", "gopheracademy", "training"))
+
 type Module struct {
 	ID        uuid.UUID `json:"id" db:"id"`
 	CreatedAt time.Time `json:"created_at" db:"created_at"`
@@ -67,8 +69,7 @@ func (m *Module) ValidateUpdate(tx *pop.Connection) (*validate.Errors, error) {
 func RebuildModules() error {
 	return DB.Transaction(func(tx *pop.Connection) error {
 		ids := []interface{}{}
-		root := envy.Get("MODULES_PATH", filepath.Join(envy.Get("GOPATH", ""), "src", "github.com", "gopheracademy", "training"))
-		err := filepath.Walk(root, func(path string, info os.FileInfo, err error) error {
+		err := filepath.Walk(ModulesPath, func(path string, info os.FileInfo, err error) error {
 			if info != nil && info.Name() == "module.md" {
 				f, err := os.Open(path)
 				if err != nil {
@@ -88,7 +89,11 @@ func RebuildModules() error {
 		}
 		// get rid of any modules in the database that no longer exist in the repo
 		if len(ids) > 0 {
-			return tx.RawQuery("delete from modules where id not in (?)", ids...).Exec()
+			err = tx.RawQuery("delete from modules where id not in (?)", ids...).Exec()
+			if err != nil {
+				return err
+			}
+			return tx.RawQuery("delete from course_modules where module_id not in (?)", ids...).Exec()
 		}
 		return nil
 	})

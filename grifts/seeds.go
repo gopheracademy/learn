@@ -1,13 +1,23 @@
 package grifts
 
 import (
+	"fmt"
+
 	"github.com/gopheracademy/learn/models"
 	. "github.com/markbates/grift/grift"
 	"github.com/markbates/pop"
 )
 
 var _ = Add("seed:all", func(c *Context) error {
-	err := Run("seed:courses", c)
+	err := Run("pull:modules", c)
+	if err != nil {
+		return err
+	}
+	err = Run("build:modules", c)
+	if err != nil {
+		return err
+	}
+	err = Run("seed:courses", c)
 	if err != nil {
 		return err
 	}
@@ -16,6 +26,12 @@ var _ = Add("seed:all", func(c *Context) error {
 
 var _ = Add("seed:courses", func(c *Context) error {
 	return models.DB.Transaction(func(tx *pop.Connection) error {
+		for _, x := range []string{"courses", "course_modules", "purchases"} {
+			err := tx.RawQuery(fmt.Sprintf("delete from %s", x)).Exec()
+			if err != nil {
+				return err
+			}
+		}
 		c := &models.Course{
 			Title:       "Beginning Go",
 			Description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
@@ -25,6 +41,21 @@ var _ = Add("seed:courses", func(c *Context) error {
 		if verrs.HasAny() {
 			return verrs
 		}
-		return err
+		if err != nil {
+			return err
+		}
+		modules := models.Modules{}
+		err = tx.Where("slug in (?)", "concurrency", "errmgmt").All(&modules)
+		if err != nil {
+			return err
+		}
+		fmt.Printf("### modules -> %+v\n", modules)
+		for i, m := range modules {
+			err = tx.Create(&models.CourseModule{CourseID: c.ID, ModuleID: m.ID, Position: i})
+			if err != nil {
+				return err
+			}
+		}
+		return nil
 	})
 })

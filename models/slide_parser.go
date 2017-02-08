@@ -14,6 +14,7 @@ type SlideParser struct {
 }
 
 func (sp *SlideParser) Parse() error {
+	slides := Slides{}
 	md, err := ioutil.ReadAll(sp)
 	if err != nil {
 		return errors.WithStack(err)
@@ -66,8 +67,9 @@ func (sp *SlideParser) Parse() error {
 			bb.WriteRune('\n')
 		}
 		s.Content = bb.String()
-		sp.Module.Slides = append(sp.Module.Slides, s)
+		slides = append(slides, s)
 	}
+	sp.Module.Slides = slides
 	return nil
 }
 

@@ -29,6 +29,7 @@ $(() => {
   function show(module, index) {
     $(".slide").hide();
     window.location.hash = `#${module}-${index}`;
+    console.log("window.location.hash:", window.location.hash);
     let $el = $(`#${module} [data-index='${index}']`)
     if ($el.length) {
       $el.show();

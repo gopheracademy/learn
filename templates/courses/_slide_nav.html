@@ -1,16 +1,27 @@
-<div class="row">
-  <div class="col-md-6">
-    {{#if @first}}
-    <a class="btn btn-sm btn-default" disabled>Previous</a>
-    {{else}}
-    <a class="btn btn-sm btn-info slide-previous">Previous</a>
-    {{/if}}
-  </div>
-  <div class="col-md-6">
-    {{#if @last}}
-    <a class="btn btn-sm btn-default pull-right" disabled>Next</a>
-    {{else}}
-    <a class="btn btn-sm btn-info slide-next pull-right">Next</a>
-    {{/if}}
-  </div>
+<div class="row slide-nav-row">
+  <nav aria-label="...">
+    <ul class="pager">
+      {{#if @first}}
+      <li class="previous disabled">
+      {{else}}
+      <li class="previous slide-previous">
+      {{/if}}
+        <a href="#" class="slide-previous">
+          <span aria-hidden="true">&larr;</span> Previous
+        </a>
+      </li>
+      <li>
+        {{m.Title}}
+      </li>
+      {{#if @last}}
+      <li class="next disabled">
+      {{else}}
+      <li class="next slide-next">
+      {{/if}}
+        <a href="#" class="slide-next">
+          Next <span aria-hidden="true">&rarr;</span>
+        </a>
+      </li>
+    </ul>
+  </nav>
 </div>

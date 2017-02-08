@@ -24,7 +24,6 @@ func CoursesIndex(c buffalo.Context) error {
 
 // CoursesShow default implementation.
 func CoursesShow(c buffalo.Context) error {
-	// TODO: only show the course to those who've bought it
 	tx := c.Value("tx").(*pop.Connection)
 	course := &models.Course{}
 	err := tx.Find(course, c.Param("course_id"))
@@ -35,10 +34,8 @@ func CoursesShow(c buffalo.Context) error {
 		course.MarkAsPurchased(tx, c.Value("current_user").(*models.User))
 	}
 	c.Set("course", course)
-	// TODO: only pull the modules associated with this course
-	// TODO: associate modules with courses. :)
 	modules := models.Modules{}
-	err = tx.All(&modules)
+	err = tx.BelongsToThrough(course, models.CourseModule{}).All(&modules)
 	if err != nil {
 		return err
 	}
