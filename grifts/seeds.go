@@ -47,11 +47,10 @@ var _ = Add("seed:courses", func(c *Context) error {
 			return err
 		}
 		modules := models.Modules{}
-		err = tx.Where("slug in (?)", "concurrency", "errmgmt").All(&modules)
+		err = tx.Where("slug in (?)", "errmgmt", "concurrency").All(&modules)
 		if err != nil {
 			return err
 		}
-		fmt.Printf("### modules -> %+v\n", modules)
 		for i, m := range modules {
 			err = tx.Create(&models.CourseModule{CourseID: c.ID, ModuleID: m.ID, Position: i})
 			if err != nil {
