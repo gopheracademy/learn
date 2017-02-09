@@ -10,7 +10,7 @@ import (
 func CoursesIndex(c buffalo.Context) error {
 	tx := c.Value("tx").(*pop.Connection)
 	courses := models.Courses{}
-	err := tx.All(&courses)
+	err := tx.Where("status = ?", "public").All(&courses)
 	if err != nil {
 		return err
 	}

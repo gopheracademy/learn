@@ -18,6 +18,7 @@ type Course struct {
 	Title       string    `json:"title" db:"title"`
 	Description string    `json:"description" db:"description"`
 	Price       int       `json:"price" db:"price"`
+	Status      string    `json:"status" db:"status"`
 	Purchased   bool      `json:"-" db:"-"`
 }
 

@@ -1,0 +1,1 @@
+add_column("courses", "status", "string", {"default":"public"})
