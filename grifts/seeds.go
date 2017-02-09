@@ -40,6 +40,7 @@ var _ = Add("seed:courses", func(c *Context) error {
 			Title:       "Beginning Go",
 			Description: "Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.",
 			Price:       5000,
+			Status:      "public",
 		}
 		verrs, err := tx.ValidateAndCreate(c)
 		if verrs.HasAny() {
@@ -66,6 +67,7 @@ var _ = Add("seed:courses", func(c *Context) error {
 			Title:       "Distributed Systems",
 			Description: "Distributed computing has a lot of challenges, including requirements like gossip or consensus protocols.  Additionally, how do you monitor and debug this service?  This course will walk you through the building blocks needed and best practices to tie them together.",
 			Price:       5000,
+			Status:      "public",
 		}
 		verrs, err = tx.ValidateAndCreate(c)
 		if verrs.HasAny() {
