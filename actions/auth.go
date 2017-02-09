@@ -106,6 +106,7 @@ func authorize(next buffalo.Handler) buffalo.Handler {
 }
 
 func setCurrentUser(next buffalo.Handler) buffalo.Handler {
+	fmt.Println("in the regular setCurrentUser")
 	return func(c buffalo.Context) error {
 		if uid := c.Session().Get("current_user_id"); uid != nil {
 			tx := c.Value("tx").(*pop.Connection)
