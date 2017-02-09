@@ -72,7 +72,8 @@ func (sp *SlideParser) Parse() error {
 		s.Content = bb.String()
 		slides = append(slides, s)
 	}
-	sp.Module.Slides = slides
+	// throw away the first slide
+	sp.Module.Slides = slides[1:]
 	return nil
 }
 

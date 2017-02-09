@@ -18,5 +18,6 @@ func Test_SlideParser(t *testing.T) {
 
 	m := p.Module
 	r.Equal("Concurrency", m.Title)
-	r.Len(m.Slides, 11)
+	r.Len(m.Slides, 10)
+	r.Equal(m.Slides[0].Title, "Goroutines")
 }
