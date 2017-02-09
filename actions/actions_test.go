@@ -27,6 +27,7 @@ type ActionSuite struct {
 	DB     *pop.Connection
 	Willie *willie.Willie
 	app    *buffalo.App
+	scu    buffalo.MiddlewareFunc
 }
 
 func TestActionSuite(t *testing.T) {
@@ -54,19 +55,23 @@ func (as *ActionSuite) SetupTest() {
 	as.Willie = willie.New(as.app)
 }
 
+func (as *ActionSuite) TearDownTest() {
+	as.app.Middleware.Replace(as.scu, setCurrentUser)
+}
+
 func (as *ActionSuite) Login() (*models.User, error) {
 	u, err := createUser(as.DB)
 	if err != nil {
 		return u, err
 	}
-	scu := func(next buffalo.Handler) buffalo.Handler {
+	as.scu = func(next buffalo.Handler) buffalo.Handler {
 		return func(c buffalo.Context) error {
 			c.Set("current_user", u)
 			c.Set("current_user_id", u.ID)
 			return next(c)
 		}
 	}
-	as.app.Middleware.Replace(setCurrentUser, scu)
+	as.app.Middleware.Replace(setCurrentUser, as.scu)
 	return u, nil
 }
 
