@@ -18,6 +18,7 @@ import (
 )
 
 var ModulesPath = envy.Get("MODULES_PATH", filepath.Join(envy.Get("GOPATH", ""), "src", "github.com", "gopheracademy", "training"))
+var PublicModulesPath = envy.Get("MODULES_PATH", filepath.Join(envy.Get("GOPATH", ""), "src", "github.com", "gopheracademy", "code"))
 
 type Module struct {
 	ID        uuid.UUID `json:"id" db:"id"`
