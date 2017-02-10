@@ -4,9 +4,9 @@
       {{#if @first}}
       <li class="previous disabled">
       {{else}}
-      <li class="previous slide-previous">
+      <li class="previous slide-previous" data-index="{{@index}}" data-module="{{m.Slug}}">
       {{/if}}
-        <a href="#" class="slide-previous">
+        <a href="#">
           <span aria-hidden="true">&larr;</span> Previous
         </a>
       </li>
@@ -16,9 +16,9 @@
       {{#if @last}}
       <li class="next disabled">
       {{else}}
-      <li class="next slide-next">
+      <li class="next slide-next" data-index="{{@index}}" data-module="{{m.Slug}}">
       {{/if}}
-        <a href="#" class="slide-next">
+        <a href="#">
           Next <span aria-hidden="true">&rarr;</span>
         </a>
       </li>

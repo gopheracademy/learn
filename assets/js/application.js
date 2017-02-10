@@ -1,45 +1,54 @@
 require("bootstrap/dist/js/bootstrap.js");
 
+const showSlide = (module, index) => {
+  $(".slide").hide();
+
+  let hash = `#${module}-${index}`;
+  window.location.hash = hash;
+
+  let $el = $(`#${module} [data-index='${index}']`);
+  if ($el.length) {
+    $el.show();
+    $(`#collapse${module}`).collapse("show");
+  } else {
+    $("#welcome").show();
+  }
+};
+
+const advanceSlide = (s, offest) => {
+  let index = s.data("index");
+  let module = s.data("module");
+  index += offest;
+  showSlide(module, index);
+};
+
 $(() => {
 
   $(".slide-selector").click((e) => {
     let a = $(e.target);
-    advance(a, 0);
+    advanceSlide(a, 0);
   });
 
-  $(".slide-next").click((e) => {
+  $(".slide-next a").click((e) => {
+    e.preventDefault();
     let a = $(e.target);
-    let s = a.closest(".slide");
-    advance(s, 1);
-  });
-
-  $(".slide-previous").click((e) => {
-    let a = $(e.target);
-    let s = a.closest(".slide");
-    advance(s, -1);
-  });
-
-  function advance(s, offest) {
-    let index = s.data("index");
-    let module = s.data("module");
-    index = index + offest;
-    show(module, index);
-  };
-
-  function show(module, index) {
-    $(".slide").hide();
-    window.location.hash = `#${module}-${index}`;
-    console.log("window.location.hash:", window.location.hash);
-    let $el = $(`#${module} [data-index='${index}']`)
-    if ($el.length) {
-      $el.show();
-      $(`#collapse${module}`).collapse("show");
-    } else {
-      $("#welcome").show();
+    if (!a.hasClass(".slide-next")) {
+      a = a.closest(".slide-next");
     }
-  }
+    advanceSlide(a, 1);
+  });
 
-  $(".highlight pre").each(function(i, block) {
+  $(".slide-previous a").click((e) => {
+    e.preventDefault();
+    let a = $(e.target);
+    if (!a.hasClass(".slide-previous")) {
+      a = a.closest(".slide-previous");
+    }
+    advanceSlide(a, -1);
+  });
+
+
+  $(".highlight pre").each((i, block) => {
     let html = block.innerHTML;
     html = html.replace(/\t/g, "  ");
     block.innerHTML = html;
@@ -50,7 +59,7 @@ $(() => {
   if (hash != "") {
     let p = hash.split("-");
     $(".collapse").collapse("hide");
-    show(p[0].replace("#", ""), p[1]);
+    showSlide(p[0].replace("#", ""), p[1]);
   }
 
 });
