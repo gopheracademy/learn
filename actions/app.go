@@ -2,6 +2,7 @@ package actions
 
 import (
 	"os"
+	"time"
 
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/buffalo/middleware"
@@ -30,6 +31,12 @@ func App() *buffalo.App {
 		app.Use(setCurrentUser)
 		app.Use(trackLastURL)
 		app.Use(setStripeKeys)
+		app.Use(func(next buffalo.Handler) buffalo.Handler {
+			return func(c buffalo.Context) error {
+				c.Set("year", time.Now().Year())
+				return next(c)
+			}
+		})
 
 		app.GET("/", HomeHandler)
 

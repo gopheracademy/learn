@@ -49,15 +49,38 @@
       {{#if modules.Length}}
         This course will take roughly <strong>{{modules.Length}}</strong> to complete.
       {{/if}}
+
+      <hr>
+      <div class="panel panel-default">
+        <div class="panel-heading">
+          <h3 class="panel-title">Course Modules</h3>
+        </div>
+        <div class="panel-body">
+          <ul class="list-unstyled">
+            {{#each modules as |m|}}
+              <li>
+                {{m.Title}}
+              </li>
+            {{/each}}
+          </ul>
+        </div>
+      </div>
     </div>
     {{#if course.Purchased}}
       {{#each modules as |m|}}
       <div id="{{m.Slug}}">
         {{#each m.Slides as |slide| }}
-        <div class="slide" data-index="{{@index}}" data-module="{{m.Slug}}" style="display: none">
+          <div class="slide" data-index="{{@index}}" data-module="{{m.Slug}}" style="display: none">
             {{partial "courses/slide_nav.html"}}
-            <div>
-              {{markdown slide.Content}}
+            <div class="panel panel-default">
+              <div class="panel-body">
+                {{markdown slide.Content}}
+                <small>
+                  <em>
+                    &copy {{year}} - GopherAcademy, LLC
+                  </em>
+                </small>
+              </div>
             </div>
           </div>
         {{/each}}
