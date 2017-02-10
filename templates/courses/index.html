@@ -1,14 +1,9 @@
 <h1>Courses</h1>
 
 {{#each courses as |course|}}
-<h2><a href="{{course.URL}}">{{course.Title}}</a></h2>
-{{markdown course.Description}}
-{{#if current_user}}
-  {{#unless course.Purchased}}
+<div>
+  <h2><a href="{{course.URL}}">{{course.Title}}</a></h2>
+  {{markdown course.Description}}
   {{partial "courses/buy.html"}}
-  {{/unless}}
-{{else}}
-<button class="btn btn-info" disabled>{{currency course.Price}}</button>
-<em>You must be logged in to to buy this course</em>
-{{/if}}
+</div>
 {{/each}}

@@ -33,6 +33,10 @@ func (c Course) URL() string {
 }
 
 func (c *Course) MarkAsPurchased(tx *pop.Connection, u *User) error {
+	if c.Price == 0 {
+		c.Purchased = true
+		return nil
+	}
 	b, err := tx.Where("course_id = ? and user_id = ?", c.ID, u.ID).Exists("purchases")
 	c.Purchased = b
 	return err
