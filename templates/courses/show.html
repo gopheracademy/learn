@@ -45,6 +45,10 @@
     <div class="slide" id="welcome">
       <h1>{{course.Title}}</h1>
       {{markdown course.Description}}
+
+      {{#if modules.Length}}
+        This course will take roughly <strong>{{modules.Length}}</strong> to complete.
+      {{/if}}
     </div>
     {{#if course.Purchased}}
       {{#each modules as |m|}}
