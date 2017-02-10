@@ -14,7 +14,6 @@ import (
 
 type SlideParser struct {
 	io.Reader
-	Module Module
 }
 
 func (sp *SlideParser) ParseCode(line []byte) ([]byte, error) {
@@ -51,7 +50,7 @@ func (sp *SlideParser) ParseCode(line []byte) ([]byte, error) {
 	return bb.Bytes(), err
 }
 
-func (sp *SlideParser) Parse() error {
+func (sp *SlideParser) Parse(m *Module) error {
 	slides := Slides{}
 	md, err := ioutil.ReadAll(sp)
 	if err != nil {
@@ -88,8 +87,8 @@ func (sp *SlideParser) Parse() error {
 		t := string(bytes.TrimPrefix(line, h1))
 		s.Title = t
 		if !parsedFirstSlide {
-			sp.Module.Title = t
-			sp.Module.MetaData = s.MetaData
+			m.Title = t
+			m.MetaData = s.MetaData
 			parsedFirstSlide = true
 		}
 		bb := &bytes.Buffer{}
@@ -118,17 +117,12 @@ func (sp *SlideParser) Parse() error {
 		s.Content = bb.String()
 		slides = append(slides, s)
 	}
-	// throw away the first slide
-	sp.Module.Slides = slides[1:]
+	m.Slides = slides
 	return nil
 }
 
 func NewParser(r io.Reader) SlideParser {
 	return SlideParser{
 		Reader: r,
-		Module: Module{
-			Slides:   Slides{},
-			MetaData: MetaData{},
-		},
 	}
 }

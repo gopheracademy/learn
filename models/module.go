@@ -100,34 +100,37 @@ func RebuildModules() error {
 	})
 }
 
-func buildModule(tx *pop.Connection, path string, in io.Reader) (Module, error) {
+func buildModule(tx *pop.Connection, path string, in io.Reader) (*Module, error) {
 	root := filepath.Dir(path)
 	fmt.Printf("Found a module at %s\n", root)
 
 	slug := filepath.Base(root)
 
-	sp := NewParser(in)
-	sp.Module = Module{Slug: slug, Path: path}
-	b, err := tx.Where("slug = ?", slug).Exists(&sp.Module)
+	m := &Module{Slug: slug, Path: path}
+	b, err := tx.Where("slug = ?", slug).Exists(m)
 	if err != nil {
-		return sp.Module, errors.WithStack(err)
+		return m, errors.WithStack(err)
 	}
 	if b {
-		err = tx.Where("slug = ?", slug).First(&sp.Module)
+		err = tx.Where("slug = ?", slug).First(m)
 		if err != nil {
-			return sp.Module, errors.WithStack(err)
+			return m, errors.WithStack(err)
 		}
 	}
 
-	err = sp.Parse()
+	sp := NewParser(in)
+	err = sp.Parse(m)
 	if err != nil {
-		return sp.Module, errors.WithStack(err)
+		return m, errors.WithStack(err)
 	}
 
-	verrs, err := tx.ValidateAndSave(&sp.Module)
+	// throw away the first slide
+	m.Slides = m.Slides[1:]
+
+	verrs, err := tx.ValidateAndSave(m)
 	if verrs.HasAny() {
-		return sp.Module, verrs
+		return m, verrs
 	}
 
-	return sp.Module, errors.WithStack(err)
+	return m, errors.WithStack(err)
 }
