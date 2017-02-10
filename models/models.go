@@ -1,7 +1,7 @@
 package models
 
 import (
-	"log"
+	"fmt"
 	"os"
 
 	"github.com/markbates/going/defaults"
@@ -17,7 +17,7 @@ func init() {
 	env := defaults.String(os.Getenv("GO_ENV"), "development")
 	DB, err = pop.Connect(env)
 	if err != nil {
-		log.Fatal(err)
+		fmt.Println(err)
 	}
 	pop.Debug = env == "development"
 }
