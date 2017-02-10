@@ -38,7 +38,6 @@
         {{#each m.Slides as |slide| }}
         <div class="slide" data-index="{{@index}}" data-module="{{m.Slug}}" style="display: none">
             {{partial "courses/slide_nav.html"}}
-            <h1>{{slide.Title}}</h1>
             <div>
               {{markdown slide.Content}}
             </div>

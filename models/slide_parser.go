@@ -92,6 +92,8 @@ func (sp *SlideParser) Parse(m *Module) error {
 			parsedFirstSlide = true
 		}
 		bb := &bytes.Buffer{}
+		bb.Write(line)
+		bb.WriteRune('\n')
 		for {
 			// keep reading the contents of this slide
 			i++

@@ -1,6 +1,7 @@
 package models
 
 import (
+	"bytes"
 	"encoding/json"
 	"fmt"
 	"io"
@@ -35,6 +36,21 @@ func (m Module) String() string {
 	return string(b)
 }
 
+func (m Module) Remarkize() string {
+	bb := &bytes.Buffer{}
+
+	for i, s := range m.Slides {
+		if i != 0 {
+			bb.WriteString("\n---\n")
+		}
+		bb.WriteString(s.MetaData.String())
+		bb.WriteString("\n")
+		bb.WriteString(s.Content)
+	}
+
+	return bb.String()
+}
+
 // Modules is not required by pop and may be deleted
 type Modules []Module
 
@@ -67,26 +83,35 @@ func (m *Module) ValidateUpdate(tx *pop.Connection) (*validate.Errors, error) {
 	return validate.NewErrors(), nil
 }
 
+func FindModuleFiles() ([]string, error) {
+	files := []string{}
+	err := filepath.Walk(ModulesPath, func(path string, info os.FileInfo, err error) error {
+		if info != nil && info.Name() == "module.md" {
+			files = append(files, path)
+		}
+		return nil
+	})
+	return files, err
+}
+
 func RebuildModules() error {
 	return DB.Transaction(func(tx *pop.Connection) error {
 		ids := []interface{}{}
-		err := filepath.Walk(ModulesPath, func(path string, info os.FileInfo, err error) error {
-			if info != nil && info.Name() == "module.md" {
-				f, err := os.Open(path)
-				if err != nil {
-					return errors.WithStack(err)
-				}
-				defer f.Close()
-				m, err := buildModule(tx, path, f)
-				if err != nil {
-					return errors.WithStack(err)
-				}
-				ids = append(ids, m.ID.String())
-			}
-			return nil
-		})
+		files, err := FindModuleFiles()
 		if err != nil {
 			return err
+		}
+		for _, path := range files {
+			f, err := os.Open(path)
+			if err != nil {
+				return errors.WithStack(err)
+			}
+			defer f.Close()
+			m, err := buildModule(tx, path, f)
+			if err != nil {
+				return errors.WithStack(err)
+			}
+			ids = append(ids, m.ID.String())
 		}
 		// get rid of any modules in the database that no longer exist in the repo
 		if len(ids) > 0 {
