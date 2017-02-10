@@ -55,6 +55,17 @@ func (m Module) Remarkize() string {
 	return bb.String()
 }
 
+func (m Module) Length() time.Duration {
+	if t, ok := m.MetaData["module-time"]; ok {
+		d, err := time.ParseDuration(t + "m")
+		if err != nil {
+			return time.Duration(0)
+		}
+		return d
+	}
+	return time.Duration(0)
+}
+
 // Modules is not required by pop and may be deleted
 type Modules []Module
 
@@ -62,6 +73,14 @@ type Modules []Module
 func (m Modules) String() string {
 	b, _ := json.Marshal(m)
 	return string(b)
+}
+
+func (mm Modules) Length() time.Duration {
+	l := time.Duration(0)
+	for _, m := range mm {
+		l += m.Length()
+	}
+	return l
 }
 
 // Validate gets run everytime you call a "pop.Validate" method.
