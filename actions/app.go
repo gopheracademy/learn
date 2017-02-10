@@ -46,6 +46,7 @@ func App() *buffalo.App {
 		app.GET("/courses", CoursesIndex)
 		app.GET("/courses/{course_id}", CoursesShow)
 		app.POST("/courses/{course_id}/purchases", authorize(PurchasesCreate))
+		app.GET("/training-assets/{asset:.+}", TrainingAssets)
 	}
 
 	return app
