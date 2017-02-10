@@ -61,10 +61,22 @@ func (cc Courses) MarkPurchases(tx *pop.Connection, u *User) error {
 // Validate gets run everytime you call a "pop.Validate" method.
 // This method is not required and may be deleted.
 func (c *Course) Validate(tx *pop.Connection) (*validate.Errors, error) {
+	validStates := []string{"public", "private"}
 	return validate.Validate(
 		&validators.StringIsPresent{Field: c.Title, Name: "Title"},
 		&validators.StringIsPresent{Field: c.Description, Name: "Description"},
-		&validators.IntIsPresent{Field: c.Price, Name: "Price"},
+		&validators.FuncValidator{
+			Field:   "Status",
+			Message: fmt.Sprintf("%%s '%s' is not valid: %+v", c.Status, validStates),
+			Fn: func() bool {
+				for _, s := range validStates {
+					if s == c.Status {
+						return true
+					}
+				}
+				return false
+			},
+		},
 	), nil
 
 }
