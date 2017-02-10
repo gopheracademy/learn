@@ -62,4 +62,13 @@ $(() => {
     showSlide(p[0].replace("#", ""), p[1]);
   }
 
+  let rx = new RegExp(/(\/[^\/]+).*/);
+  let res = rx.exec(window.location.pathname);
+  if (res.length >= 2) {
+    let n = $(`.nav li[data-match="${res[1]}"]`);
+    if (n.length > 0) {
+      $(".nav li").removeClass("active");
+      n.addClass("active");
+    }
+  }
 });
