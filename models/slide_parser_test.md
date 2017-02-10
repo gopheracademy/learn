@@ -129,7 +129,8 @@ video:
 thumb:
 github:
 # Exercise
-##
+
+<code src="README.md"></code>
 
 Read Dave Cheney's article on some of the more interesting properties of channels.
 
