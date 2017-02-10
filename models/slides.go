@@ -8,6 +8,7 @@ import (
 type Slide struct {
 	Title    string   `json:"title"`
 	Content  string   `json:"content"`
+	Notes    string   `json:"notes"`
 	MetaData MetaData `json:"metadata"`
 }
 

@@ -62,6 +62,7 @@ func (sp *SlideParser) Parse(m *Module) error {
 	h1 := []byte("# ")
 	sep := []byte("---")
 	code := []byte("<code")
+	pres := []byte("???")
 
 	for i := 0; i < len(lines); i++ {
 		s := Slide{MetaData: MetaData{}}
@@ -108,6 +109,25 @@ func (sp *SlideParser) Parse(m *Module) error {
 					return err
 				}
 			}
+
+			// found a ??? for presenter notes
+			if bytes.HasPrefix(line, pres) {
+				pp := &bytes.Buffer{}
+				for {
+					i++
+					line = lines[i]
+
+					// found an ---, back up and have a go at the next slide
+					if bytes.HasPrefix(line, sep) {
+						s.Notes = pp.String()
+						i--
+						break
+					}
+					pp.Write(line)
+					pp.WriteRune('\n')
+				}
+			}
+
 			// found an ---, back up and have a go at the next slide
 			if bytes.HasPrefix(line, sep) {
 				i--

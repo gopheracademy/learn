@@ -46,6 +46,10 @@ func (m Module) Remarkize() string {
 		bb.WriteString(s.MetaData.String())
 		bb.WriteString("\n")
 		bb.WriteString(s.Content)
+		if s.Notes != "" {
+			bb.WriteString("\n???\n")
+			bb.WriteString(s.Notes)
+		}
 	}
 
 	return bb.String()
