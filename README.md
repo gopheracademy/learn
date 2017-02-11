@@ -1,36 +1,55 @@
+# Setting Up and Deploying Learn
 
-# Welcome to Buffalo!
+## Set Up Databases
 
-Thank you for chosing Buffalo for your web development needs.
+Setup the users and passwords listed in `database.yml`.
 
-## Database Setup
+## Setup Auth Keys
 
-It looks like you chose to set up your application using a postgres database! Fantastic!
+Currently we support 5 different login methods: `GitHub`, `LinkedIn`, `Twitter`, `FaceBook`, and `Google+`. In production OAuth applications need to be created and set up to point at the production URL of the application.
 
-The first thing you need to do is open up the "database.yml" file and edit it to use the correct usernames, passwords, hosts, etc... that are appropriate for your environment.
+If we don't want to support these five logins, we need to remove them from `actions/auth.go` and `templates/_nav_bar.html`.
 
-You will also need to make sure that **you** start/install the database of your choice. Buffalo **won't** install and start postgres for you.
+```text
+GITHUB_KEY
+GITHUB_SECRET
+```
 
-### Create Your Databases
+```text
+LINKEDIN_KEY
+LINKEDIN_SECRET
+```
 
-Ok, so you've edited the "database.yml" file and started postgres, now Buffalo can create the databases in that file for you:
+```text
+TWITTER_KEY
+TWITTER_SECRET
+```
 
-	$ buffalo db create -a
+```text
+FACEBOOK_KEY
+FACEBOOK_SECRET
+```
 
-## Starting the Application
+```text
+GPLUS_KEY
+GPLUS_SECRET
+```
 
-Buffalo ships with a command that will watch your application and automatically rebuild the Go binary and any assets for you. To do that run the "buffalo dev" command:
+#### Development
 
-	$ buffalo dev
+Here is a development key for GitHub. It only works on `127.0.0.1`.
 
-If you point your browser to [http://127.0.0.1:3000](http://127.0.0.1:3000) you should see a "Welcome to Buffalo!" page.
+```text
+GITHUB_KEY="308545eb0909a67d1581"
+GITHUB_SECRET="c8ed04e6dcb9a37dd3711de0991e2fc51e04303e"
+```
 
-**Congratulations!** You now have your Buffalo application up and running.
+## GitHub Callback
 
-## What Next?
+The ENV var `GITHUB_WEBHOOK_SECRET` needs to be set up with the production secret. This doesn't need to be set up in development.
 
-We recommend you heading over to [http://gobuffalo.io](http://gobuffalo.io) and reviewing all of the great documentation there.
+## Training Repo
 
-Good luck!
+All that is left is to have access to the `github.com/gopheracademy/training` repo locally from the web server. The repo should be set up at `$GOPATH/src/github.com/gopheracademy/training`.
 
-[Powered by Buffalo](http://gobuffalo.io)
+The application needs both `go` and `git` tooling in order to run properly.
