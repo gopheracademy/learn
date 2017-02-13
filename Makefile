@@ -5,7 +5,7 @@ USER=bketelsen
 PWD:=$(shell pwd)
 
 
-all: docker-push 
+all: docker-push
 
 builder: builder-push
 
@@ -27,9 +27,9 @@ clean:
 	rm -rf bin/${NAME}
 
 test: clean
-	go test ./...
+	GO_ENV=test go test ./...
 
-build: 
+build:
 	npm rebuild node-sass
 	npm i
 	go get ./...

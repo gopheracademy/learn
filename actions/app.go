@@ -6,6 +6,7 @@ import (
 
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/buffalo/middleware"
+	"github.com/gopheracademy/learn/actions/api/v1"
 	"github.com/gopheracademy/learn/models"
 	"github.com/markbates/going/defaults"
 
@@ -54,6 +55,9 @@ func App() *buffalo.App {
 		app.GET("/courses/{course_id}", CoursesShow)
 		app.POST("/courses/{course_id}/purchases", authorize(PurchasesCreate))
 		app.GET("/training-assets/{asset:.+}", TrainingAssets)
+
+		api := app.Group("/api/v1")
+		api.POST("/github", v1.GitHubWebhook)
 	}
 
 	return app
