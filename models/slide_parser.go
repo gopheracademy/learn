@@ -5,6 +5,7 @@ import (
 	"io"
 	"io/ioutil"
 	"path/filepath"
+	"strconv"
 	"strings"
 
 	"golang.org/x/net/html"
@@ -23,30 +24,56 @@ func (sp *SlideParser) ParseCode(line []byte) ([]byte, error) {
 	if err != nil {
 		return bb.Bytes(), errors.WithStack(err)
 	}
-	var f func(*html.Node) error
-	f = func(n *html.Node) error {
+
+	attrs := map[string]string{
+		"start": "1",
+		"end":   "-1",
+	}
+
+	var f func(*html.Node)
+	f = func(n *html.Node) {
 		if n.Type == html.ElementNode && n.Data == "code" {
 			for _, a := range n.Attr {
-				if a.Key == "src" {
-					fb, err := ioutil.ReadFile(filepath.Join(ModulesPath, a.Val))
-					if err != nil {
-						return errors.WithStack(err)
-					}
-					ext := filepath.Ext(a.Val)
-					bb.WriteString("```")
-					bb.WriteString(strings.TrimPrefix(ext, "."))
-					bb.WriteString("\n")
-					bb.Write(bytes.TrimSpace(fb))
-					bb.WriteString("\n```")
-				}
+				attrs[a.Key] = a.Val
 			}
 		}
 		for c := n.FirstChild; c != nil; c = c.NextSibling {
 			f(c)
 		}
-		return nil
 	}
-	err = f(doc)
+	f(doc)
+	if src, ok := attrs["src"]; ok {
+		sl, err := strconv.Atoi(attrs["start"])
+		if err != nil {
+			return bb.Bytes(), errors.WithStack(err)
+		}
+		el, err := strconv.Atoi(attrs["end"])
+		if err != nil {
+			return bb.Bytes(), errors.WithStack(err)
+		}
+
+		fb, err := ioutil.ReadFile(filepath.Join(ModulesPath, src))
+		if err != nil {
+			return bb.Bytes(), errors.WithStack(err)
+		}
+
+		ext := filepath.Ext(src)
+		bb.WriteString("```")
+		bb.WriteString(strings.TrimPrefix(ext, "."))
+		nl := []byte("\n")
+		bb.Write(nl)
+
+		fb = bytes.TrimSpace(fb)
+		lines := bytes.Split(fb, nl)
+		sl -= 1
+		if el == -1 {
+			el = len(lines)
+		}
+		lines = lines[sl:el]
+		bb.Write(bytes.Join(lines, nl))
+
+		bb.WriteString("\n```")
+	}
 	return bb.Bytes(), err
 }
 
