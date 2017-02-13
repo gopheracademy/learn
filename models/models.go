@@ -2,9 +2,11 @@ package models
 
 import (
 	"fmt"
+	"path/filepath"
+
 	"os"
 
-	"github.com/markbates/going/defaults"
+	"github.com/gobuffalo/envy"
 	"github.com/markbates/pop"
 )
 
@@ -13,8 +15,9 @@ import (
 var DB *pop.Connection
 
 func init() {
+	pop.AddLookupPaths(filepath.Join(os.Getenv("GOPATH"), "src", "github.com", "gopheracademy", "learn"))
 	var err error
-	env := defaults.String(os.Getenv("GO_ENV"), "development")
+	env := envy.Get("GO_ENV", "development")
 	DB, err = pop.Connect(env)
 	if err != nil {
 		fmt.Println(err)

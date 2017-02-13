@@ -27,7 +27,7 @@ clean:
 	rm -rf bin/${NAME}
 
 test: clean
-	GO_ENV=test go test ./...
+	GO_ENV=test APP_PATH=./ go test ./...
 
 build:
 	npm rebuild node-sass
