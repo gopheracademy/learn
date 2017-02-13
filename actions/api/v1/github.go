@@ -1,6 +1,8 @@
 package v1
 
 import (
+	"strings"
+
 	"github.com/gobuffalo/buffalo"
 	"github.com/gobuffalo/envy"
 	_ "github.com/gopheracademy/learn/grifts" // load grifts
@@ -12,7 +14,11 @@ import (
 var hmac = hmax.New("X-Hub-Signature", []byte(envy.Get("GITHUB_WEBHOOK_SECRET", "some-secret")))
 
 func GitHubWebhook(c buffalo.Context) error {
-	b, err := hmac.VerifyRequest(c.Request())
+	req := c.Request()
+	xhs := req.Header.Get(hmac.Header)
+	xhs = strings.TrimPrefix(xhs, "sha1=")
+	req.Header.Set(hmac.Header, xhs)
+	b, err := hmac.VerifyRequest(req)
 	if err != nil {
 		return err
 	}
