@@ -2,6 +2,7 @@ vendor/
 **/*.log
 **/*.sqlite
 .idea/
+.vscode/
 bin/
 tmp/
 node_modules/
@@ -9,4 +10,5 @@ node_modules/
 rice-box.go
 public/assets/
 .envrc
+**/.DS_Store
 learn

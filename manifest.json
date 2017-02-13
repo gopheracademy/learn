@@ -1,0 +1,55 @@
+{
+    "dependencies": {
+        "github.com/GeertJohan/go.rice": {
+            "branch": "master"
+        },
+        "github.com/gobuffalo/buffalo": {
+            "branch": "master"
+        },
+        "github.com/gobuffalo/envy": {
+            "branch": "master"
+        },
+        "github.com/gobuffalo/velvet": {
+            "branch": "master"
+        },
+        "github.com/gorilla/mux": {
+            "branch": "master"
+        },
+        "github.com/leekchan/accounting": {
+            "branch": "master"
+        },
+        "github.com/markbates/going": {
+            "branch": "master"
+        },
+        "github.com/markbates/goth": {
+            "branch": "master"
+        },
+        "github.com/markbates/grift": {
+            "branch": "master"
+        },
+        "github.com/markbates/hmax": {
+            "branch": "master"
+        },
+        "github.com/markbates/pop": {
+            "branch": "master"
+        },
+        "github.com/markbates/validate": {
+            "branch": "master"
+        },
+        "github.com/pkg/errors": {
+            "branch": "master"
+        },
+        "github.com/satori/go.uuid": {
+            "branch": "master"
+        },
+        "github.com/spf13/cobra": {
+            "branch": "master"
+        },
+        "github.com/stripe/stripe-go": {
+            "branch": "master"
+        },
+        "golang.org/x/net": {
+            "branch": "master"
+        }
+    }
+}
