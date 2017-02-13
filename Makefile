@@ -32,16 +32,14 @@ test: clean
 build:
 	npm rebuild node-sass
 	npm i
-	go get ./...
-	go get github.com/gobuffalo/buffalo/...
-	buffalo build
+	buffalo build -z
 
 
 docker-clean:
 	docker rmi ${NAME} &>/dev/null || true
 
 docker-build: docker-clean
-	docker run --rm -it -v ${PWD}:/root/src/github.com/gopheracademy/learn -w /root/src/github.com/gopheracademy/learn ${USER}/alpine-golang:latest make build
+	docker run --rm -it -v ${PWD}:/root/src/github.com/gopheracademy/learn -w /root/src/github.com/gopheracademy/learn ${USER}/alpine-golang:latest 
 	docker build --pull=true --no-cache -t ${USER}/${NAME}:${RELEASE} .
 	docker tag ${USER}/${NAME}:${RELEASE} ${USER}/${NAME}:latest
 
