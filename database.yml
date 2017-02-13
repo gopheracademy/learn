@@ -14,4 +14,8 @@ test:
   host: 127.0.0.1
 
 production:
-  url: {{envOr "DATABASE_URL" "postgres://postgres:postgres@127.0.0.1:5432/learn_production"}}
+  dialect: postgres
+  database: learn_production
+  user: postgres
+  password: postgres
+  host: learndb
