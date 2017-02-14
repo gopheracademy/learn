@@ -1,40 +1,37 @@
-<nav class="navbar navbar-inverse navbar-fixed-top">
-  <div class="container">
-    <div class="navbar-header">
-      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-        <span class="sr-only">Toggle navigation</span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-        <span class="icon-bar"></span>
-      </button>
-      <a class="navbar-brand" href="/"><img src="/assets/images/logo.svg" width="100%"></a>
-    </div>
-    <div id="navbar" class="navbar-collapse collapse">
-      <ul class="nav navbar-nav">
-        <li class="active"><a href="/">Home</a></li>
-        <li data-match="/courses"><a href="/courses">Courses</a></li>
-      </ul>
-      <ul class="nav navbar-nav pull-right">
-        <li class="dropdown">
-          {{#if current_user}}
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">{{current_user.Name}} <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <!-- <li role="separator" class="divider"></li> -->
-              <li><a href="/logout" data-method="DELETE"><i class="fa fa-sign-out" aria-hidden="true"></i> Logout</a></li>
-            </ul>
-          {{ else }}
-            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Login <span class="caret"></span></a>
-            <ul class="dropdown-menu">
-              <li><a href="/auth/github"><i class="fa fa-github" aria-hidden="true"></i> GitHub</a></li>
-              <li><a href="/auth/linkedin"><i class="fa fa-linkedin" aria-hidden="true"></i> LinkedIn</a></li>
-              <li><a href="/auth/twitter"><i class="fa fa-twitter" aria-hidden="true"></i> Twitter</a></li>
-              <li><a href="/auth/facebook"><i class="fa fa-facebook" aria-hidden="true"></i> FaceBook</a></li>
-              <li><a href="/auth/gplus"><i class="fa fa-google-plus-official" aria-hidden="true"></i> Google+</a></li>
-            </ul>
-          {{/if}}
-        </li>
-      </ul>
-    </div>
-    <!--/.nav-collapse -->
-  </div>
-</nav>
+	<!-- Header
+	================================================== -->
+	<header id="header">
+
+		<!-- Navigation
+		================================================== -->
+		<nav class="navbar">
+			<div class="navbar-inner">
+				<div class="container">
+					<!-- Logo -->
+					<a class="brand" href="index.html">
+						Plain
+					</a>
+					<ul class="nav">
+						<li><a href="index.html" title="Home">Home</a></li>
+						<li><a href="work.html" title="Our work">Portfolio</a></li>
+						<li><a href="plans.html" title="Plans and pricing">Pricing</a></li>
+						<li><a href="team.html" title="Our team">Our team</a></li>
+						<li><a href="blog.html" title="Our blog">Blog</a></li>
+						<li class="dropdown">
+							<a href="components.html" title="Features">Features</a>
+							<!-- Dropdown menu -->
+							<ul>
+								<li><a href="components.html" title="">Components</a></li>
+								<li><a href="grid.html" title="">Grid</a></li>
+								<li><a href="icons.html" title="">Icons</a></li>
+								<li><a href="home-variant-1.html" title="">Homepage variant #1</a></li>
+								<li><a href="home-variant-2.html" title="">Homepage variant #2</a></li>
+							</ul>
+						</li>
+						<li><a href="contact.html" title="Contact us">Contact</a></li>
+					</ul>
+				</div><!-- end .container -->
+			</div><!-- end .navbar-inner -->
+		</nav>
+
+	</header

@@ -1,33 +1,21 @@
-@import "~bootstrap/dist/css/bootstrap.css";
-@import "~bootswatch/slate/bootstrap.css";
-@import "~font-awesome/css/font-awesome.css";
-@import "./monokai-sublime.css";
+@import "style";
 
-.navbar-brand > img {
-  height: 100%;
-
-  // padding: 15px;
-  width: auto;
-}
-
-#main {
-  margin-top: 60px;
-}
-
-.slide-nav-row {
-  h3 {
-    text-align: center;
+.member {
+  .member-avatar {
     padding: 0px;
-    margin: 0px;
   }
 }
 
-.slide {
-  .pager {
-    margin-top: 0px;
-  }
+.navbar .nav {
+  margin: 0px;
 
-  h1 {
-    margin-top: 0px;
+  li {
+    float: left;
+  }
+}
+
+.navbar {
+  .brand:hover {
+    text-decoration: none;
   }
 }

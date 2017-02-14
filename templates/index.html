@@ -1,36 +1,168 @@
-<div class="row">
-  <div class="col-md-2">
-    <img src="/assets/images/logo.svg" alt="" />
-  </div>
-  <div class="col-md-10">
-    <h1>Welcome to Buffalo! [v0.7.2]</h1>
-    <h2>
-      <a href="https://github.com/gobuffalo/buffalo"><i class="fa fa-github" aria-hidden="true"></i> https://github.com/gobuffalo/buffalo</a>
-    </h2>
-    <h2>
-      <a href="http://gobuffalo.io"><i class="fa fa-book" aria-hidden="true"></i> Documentation</a>
-    </h2>
+	<!-- Content
+	================================================== -->
+	<section id="content" class="container">
 
-    <hr>
-    <h2>Defined Routes</h2>
-    <table class="table table-striped">
-      <thead>
-        <tr text-align="left">
-          <th>METHOD</th>
-          <th>PATH</th>
-          <th>HANDLER</th>
-        </tr>
-      </thead>
-      <tbody>
-        {{#each routes as |r|}}
-        <tr>
-          <td>{{r.Method}}</td>
-          <td>{{r.Path}}</td>
-          <td><code>{{r.HandlerName}}</code></td>
-        </tr>
-        {{/each}}
-      </tbody>
-    </table>
-  </div>
+</section><!-- end .container -->
+
+<div class="lead-container">
+<div class="container">
+
+
+	<!-- Macbook carousel -->
+	<div id="carousel" class="carousel slide macbook" rel="carousel">
+		<img src="/assets/img/carousel-macbook.png" class="carousel-macbook" alt="" />
+		<!-- Carousel items -->
+		<div class="carousel-inner">
+			<!-- Item -->
+			<div class="item active">
+				<img src="/assets/images/carousel/h.gif" alt="" />
+			</div>
+			<!-- end Item -->
+			<!-- Item -->
+			<div class="item">
+				<img src="/assets/images/carousel/a.jpg" alt="" />
+			</div>
+			<!-- end Item -->
+			<!-- Item -->
+			<div class="item">
+				<img src="/assets/images/carousel/b.jpg" alt="" />
+			</div>
+			<!-- end Item -->
+			<!-- Item -->
+			<div class="item">
+				<img src="/assets/images/carousel/c.jpg" alt="" />
+			</div>
+			<!-- end Item -->
+			<!-- Item -->
+			<div class="item">
+				<img src="/assets/images/carousel/e.jpg" alt="" />
+			</div>
+			<!-- end Item -->
+		</div>
+		<!-- Carousel navigation -->
+		<a class="carousel-control left" href="#carousel" data-slide="prev"></a>
+		<a class="carousel-control right" href="#carousel" data-slide="next"></a>
+	</div>
+	<!-- end Macbook carousel -->
+
+</div>
 </div>
 
+<section class="container">
+
+	<section class="row">
+		<article class="span4">
+			<h2><span class="grey">We're</span> Creative</h2>
+			<p>
+				Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. 
+			</p>
+			<p><a class="" href="#">Read more &raquo;</a></p>
+		</article>
+		<article class="span4">
+			<h2><span class="grey">We're</span> Reliable</h2>
+			<p>
+				Donec id elit non mi porta gravida at eget metus. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus. Etiam porta sem malesuada magna mollis euismod. Donec sed odio dui. 
+			</p>
+			<p><a class="" href="#">Read more &raquo;</a></p>
+		</article>
+		<article class="span4">
+			<h2><span class="grey">We're</span> in Palo Alto</h2>
+			<p>Donec sed odio dui. Cras justo odio, dapibus ac facilisis in, egestas eget quam. Vestibulum id ligula porta felis euismod semper. Fusce dapibus, tellus ac cursus commodo, tortor mauris condimentum nibh, ut fermentum massa justo sit amet risus.</p>
+			<p><a class="" href="#">Read more &raquo;</a></p>
+		</article>
+	</section>
+	<!-- end .row -->
+
+<hr />
+
+<div class="services">
+	<ul class="nav nav-tabs">
+		<li rel="service-1" class="active">
+			<a href="#service-1" data-toggle="tab">
+				<img src="/assets/img/icons/globe.png" alt="" />
+			</a>
+		</li>
+		<li rel="service-2">
+			<a href="#service-2" data-toggle="tab">
+				<img src="/assets/img/icons/upload.png" alt="" />	
+			</a>
+		</li>
+		<li rel="service-3">
+			<a href="#service-3" data-toggle="tab">
+				<img src="/assets/img/icons/stopwatch.png" alt="" />	
+			</a>
+		</li>
+		<li rel="service-4">
+			<a href="#service-4" data-toggle="tab">
+				<img src="/assets/img/icons/leaf.png" alt="" />	
+			</a>
+		</li>
+		<li rel="service-5">
+			<a href="#service-5" data-toggle="tab">
+				<img src="/assets/img/icons/laptop.png" alt="" />	
+			</a>
+		</li>
+	</ul>
+	<div class="tab-content">
+		<div id="service-1" class="tab-pane active">
+
+			<div class="row-fluid">
+				<div class="span9">
+					<h3>Webdesign and web development</h3>
+					<p>
+						Professionally designed, custom websites with integrated web content management systems (CMS). 
+						We're dedicated to providing small businesses and organizations with high-quality web design and web development services at a remarkably competitive value. 
+					</p>
+					<p>
+						Cupcake ipsum dolor sit amet wafer gummi bears pudding applicake. Jujubes brownie powder. Sweet roll powder gingerbread gummies. Cupcake ice cream sweet roll pie lollipop. Jelly-o jelly-o apple pie chupa chups jelly jujubes gingerbread. 
+					</p>
+				</div>
+				<div class="span3 ac">
+					<span class="price ac">
+						starting at <b>$299</b>
+					</span>
+					<a class="button orange" href="work.html">view our portfolio &rarr;</a>	
+				</div>
+			</div>
+			
+		</div>
+		<div id="service-2" class="tab-pane">
+
+			<div class="row-fluid">
+				<div class="span10">
+					<h3>Cloud hosting and server related services</h3>
+					<p>
+						 Cloud computing is a set of pooled computing resources delivered over the Internet. The cloud delivers a hosting environment that doesn't limit an application to a specific set of resources. Depending on the platform, an application can scale dynamically and increase its share of resources on-the-fly.
+					</p>
+				</div>
+				<div class="span2">
+					<span class="price">
+						starting at <b>$29</b> per month
+					</span>
+				</div>
+			</div>
+		</div>
+		<div id="service-3" class="tab-pane">
+				<h3>Social media training</h3>
+				<p>
+					Cupcake ipsum dolor sit amet wafer gummi bears pudding applicake. Jujubes brownie powder. Sweet roll powder gingerbread gummies. Cupcake ice cream sweet roll pie lollipop. Jelly-o jelly-o apple pie chupa chups jelly jujubes gingerbread. Icing carrot cake powder chupa chups. Pudding sweet roll jelly-o muffin faworki biscuit. Marzipan marshmallow cake tiramisu caramels bear claw carrot cake cotton candy. Toffee danish sweet roll. Cookie topping powder toffee ice cream muffin dragée. Soufflé caramels apple pie chocolate cake cookie cake. Macaroon tiramisu halvah soufflé. Dessert toffee halvah chocolate cake bear claw.
+				</p>
+		</div>
+		<div id="service-4" class="tab-pane">
+				<h3>SEO - Search engine optimization and services</h3>
+				<p>
+					Cupcake ipsum dolor sit amet wafer gummi bears pudding applicake. Jujubes brownie powder. Sweet roll powder gingerbread gummies. Cupcake ice cream sweet roll pie lollipop. Jelly-o jelly-o apple pie chupa chups jelly jujubes gingerbread. Icing carrot cake powder chupa chups. Pudding sweet roll jelly-o muffin faworki biscuit. Marzipan marshmallow cake tiramisu caramels bear claw carrot cake cotton candy. Toffee danish sweet roll. Cookie topping powder toffee ice cream muffin dragée. Soufflé caramels apple pie chocolate cake cookie cake. Macaroon tiramisu halvah soufflé. Dessert toffee halvah chocolate cake bear claw.
+				</p>
+		</div>
+		<div id="service-5" class="tab-pane">
+				<h3>Branding and identity design</h3>
+				<p>
+					Cupcake ipsum dolor sit amet wafer gummi bears pudding applicake. Jujubes brownie powder. Sweet roll powder gingerbread gummies. Cupcake ice cream sweet roll pie lollipop. Jelly-o jelly-o apple pie chupa chups jelly jujubes gingerbread. Icing carrot cake powder chupa chups. Pudding sweet roll jelly-o muffin faworki biscuit. Marzipan marshmallow cake tiramisu caramels bear claw carrot cake cotton candy. Toffee danish sweet roll. Cookie topping powder toffee ice cream muffin dragée. Soufflé caramels apple pie chocolate cake cookie cake. Macaroon tiramisu halvah soufflé. Dessert toffee halvah chocolate cake bear claw.
+				</p>
+		</div>
+	</div>
+</div>
+
+
+</section>
+	</section>

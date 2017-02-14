@@ -1,21 +1,21 @@
+// poly fill for some of the old jquery stuff this theme uses:
+jQuery.fn.load = function(callback){ $(window).on("load", callback) };
+
 require("bootstrap/dist/js/bootstrap.js");
-require("./slides.js");
-
+require("./jquery.isotope.min.js");
+require("./jquery.touchSwipe.min.js");
+require("./jquery.isotope.min.js");
+require("./functions.min.js");
 $(() => {
-  $(".highlight pre").each((i, block) => {
-    let html = block.innerHTML;
-    html = html.replace(/\t/g, "  ");
-    block.innerHTML = html;
-    hljs.highlightBlock(block);
-  });
-
-  let rx = new RegExp(/(\/[^\/]+).*/);
-  let res = rx.exec(window.location.pathname);
-  if (res.length >= 2) {
-    let n = $(`.nav li[data-match="${res[1]}"]`);
-    if (n.length > 0) {
-      $(".nav li").removeClass("active");
-      n.addClass("active");
-    }
-  }
+  activateSideNav();
 });
+
+function activateSideNav() {
+  let loc = window.location;
+  let path = loc.pathname;
+  $(".nav li").removeClass("active");
+  $(`.nav a[href='${path}']`).closest("li").addClass("active");
+  $(`#contentTabs :eq(0)`).addClass("active")
+  $(`#tabContents :eq(0)`).addClass("active")
+}
+
