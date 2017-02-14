@@ -1,5 +1,5 @@
 {
-    "memo": "068ff7b5408a95919bd033d4ae185450d94179f3d0befd62eb889b1a875c5beb",
+    "memo": "7c87db81a5d2641e36c72bd57e611d4a1847bd1c1e1e204a915c51166a57a427",
     "projects": [
         {
             "name": "github.com/GeertJohan/go.rice",
@@ -11,8 +11,8 @@
         },
         {
             "name": "github.com/Sirupsen/logrus",
-            "version": "v0.11.2",
-            "revision": "c078b1e43f58d563c74cebe63c85789e76ddb627",
+            "branch": "master",
+            "revision": "3f603f494d61c73457fb234161d8982b9f0f0b71",
             "packages": [
                 "."
             ]
@@ -27,8 +27,8 @@
         },
         {
             "name": "github.com/aymerick/raymond",
-            "version": "v2.0.1",
-            "revision": "a2232af10b53ef1ae5a767f5178db3a6c1dab655",
+            "branch": "master",
+            "revision": "72acac2207479d21dd45898c2a4264246c818148",
             "packages": [
                 "ast",
                 "parser"
@@ -68,7 +68,7 @@
         },
         {
             "name": "github.com/fatih/color",
-            "version": "v1.3.0",
+            "branch": "master",
             "revision": "5ec5d9d3c2cf82e9688b34e9bc27a94d616a7193",
             "packages": [
                 "."
@@ -76,16 +76,16 @@
         },
         {
             "name": "github.com/fsnotify/fsnotify",
-            "version": "v1.4.2",
-            "revision": "629574ca2a5df945712d3079857300b5e4da0236",
+            "branch": "master",
+            "revision": "a904159b9206978bb6d53fcc7a769e5cd726c737",
             "packages": [
                 "."
             ]
         },
         {
             "name": "github.com/go-sql-driver/mysql",
-            "version": "v1.3",
-            "revision": "a0583e0143b1624142adab07e0e97fe106d99561",
+            "branch": "master",
+            "revision": "2e00b5cd70399450106cec6431c2e2ce3cae5034",
             "packages": [
                 "."
             ]
@@ -93,7 +93,7 @@
         {
             "name": "github.com/gobuffalo/buffalo",
             "branch": "master",
-            "revision": "891616ea406417de52daaae95f2cc3a20c71a71a",
+            "revision": "cae4585044138c8ea367cc869e70b2d3c7afae1c",
             "packages": [
                 ".",
                 "middleware",
@@ -127,15 +127,15 @@
         },
         {
             "name": "github.com/gorilla/context",
-            "version": "v1.1",
-            "revision": "1ea25387ff6f684839d82767c1733ff4d4d15d0a",
+            "branch": "master",
+            "revision": "08b5f424b9271eedf6f9f0ce86cb9396ed337a42",
             "packages": [
                 "."
             ]
         },
         {
             "name": "github.com/gorilla/mux",
-            "version": "v1.3.0",
+            "branch": "master",
             "revision": "392c28fe23e1c45ddba891b0320b3b5df220beea",
             "packages": [
                 "."
@@ -151,24 +151,24 @@
         },
         {
             "name": "github.com/gorilla/securecookie",
-            "version": "v1.1",
-            "revision": "667fe4e3466a040b780561fe9b51a83a3753eefc",
+            "branch": "master",
+            "revision": "fa5329f913702981df43dcb2a380bac429c810b5",
             "packages": [
                 "."
             ]
         },
         {
             "name": "github.com/gorilla/sessions",
-            "version": "v1.1",
-            "revision": "ca9ada44574153444b00d3fd9c8559e4cc95f896",
+            "branch": "master",
+            "revision": "83c8db3bdc9be789e57e3756ffbcffd2d7d40176",
             "packages": [
                 "."
             ]
         },
         {
             "name": "github.com/gorilla/websocket",
-            "version": "v1.1.0",
-            "revision": "3ab3a8b8831546bd18fd182c20687ca853b2bb13",
+            "branch": "master",
+            "revision": "9bc973af0682dc73a22553a08bfe00ee6255f56f",
             "packages": [
                 "."
             ]
@@ -199,7 +199,7 @@
         },
         {
             "name": "github.com/leekchan/accounting",
-            "version": "v0.2",
+            "branch": "master",
             "revision": "a35854c075934d6aa1a6c1ab3ea8a82ee0dc1a93",
             "packages": [
                 "."
@@ -208,7 +208,7 @@
         {
             "name": "github.com/lib/pq",
             "branch": "master",
-            "revision": "d67b1982b9d913b680e5f04323785fc69366d306",
+            "revision": "ba5d4f7a35561e22fbdf7a39aa0070f4d460cfc0",
             "packages": [
                 "."
             ]
@@ -249,7 +249,7 @@
         {
             "name": "github.com/markbates/hmax",
             "branch": "master",
-            "revision": "e7c1a2da7847d8f4254dc646f27105761d00a679",
+            "revision": "800e180dcd16937a4cc134c6aa8c8407e62ce880",
             "packages": [
                 "."
             ]
@@ -273,8 +273,8 @@
         },
         {
             "name": "github.com/markbates/refresh",
-            "version": "1.2.0",
-            "revision": "3b31d64dec02d89d735e1f60c05ed41a43c5207e",
+            "branch": "master",
+            "revision": "3634846b032a7c64744ec91450a7d0c92b0e5c17",
             "packages": [
                 "refresh/web"
             ]
@@ -307,24 +307,24 @@
         },
         {
             "name": "github.com/mattn/go-colorable",
-            "version": "v0.0.7",
-            "revision": "d228849504861217f796da67fae4f6e347643f15",
+            "branch": "master",
+            "revision": "5411d3eea5978e6cdc258b30de592b60df6aba96",
             "packages": [
                 "."
             ]
         },
         {
             "name": "github.com/mattn/go-isatty",
-            "version": "v0.0.1",
-            "revision": "3a115632dcd687f9c8cd01679c83a06a0e21c1f3",
+            "branch": "master",
+            "revision": "281032e84ae07510239465db46bf442aa44b953a",
             "packages": [
                 "."
             ]
         },
         {
             "name": "github.com/mattn/go-sqlite3",
-            "version": "v1.2.0",
-            "revision": "ca5e3819723d8eeaf170ad510e7da1d6d2e94a08",
+            "branch": "master",
+            "revision": "588cd3292ba03bb748befd607cc5c72e13204533",
             "packages": [
                 "."
             ]
@@ -355,7 +355,7 @@
         },
         {
             "name": "github.com/newrelic/go-agent",
-            "version": "v1.6.0",
+            "branch": "master",
             "revision": "71ae6edf91a40f8bb740c2438eef209b11c2f87c",
             "packages": [
                 "."
@@ -379,8 +379,8 @@
         },
         {
             "name": "github.com/russross/blackfriday",
-            "version": "v1.4",
-            "revision": "0b647d0506a698cca42caca173e55559b12a69f2",
+            "branch": "master",
+            "revision": "5f33e7b7878355cd2b7e6b8eefc48a5472c69f70",
             "packages": [
                 "."
             ]
@@ -420,7 +420,7 @@
         {
             "name": "github.com/shurcooL/go",
             "branch": "master",
-            "revision": "16c2a662e939218caa19feb62fea301e6a7fa758",
+            "revision": "ecb4791be8860c12288a50b8473ee60392489d36",
             "packages": [
                 "reflectsource"
             ]
@@ -509,7 +509,7 @@
         {
             "name": "github.com/stripe/stripe-go",
             "branch": "master",
-            "revision": "116dcbd178761483b2be956a30796eb12883fb03",
+            "revision": "d0f3d68166920cfaf4e3f23ac8f40ba9dcdbbe91",
             "packages": [
                 ".",
                 "charge"
@@ -536,7 +536,7 @@
         {
             "name": "golang.org/x/sys",
             "branch": "master",
-            "revision": "0ed46b70d91ba0ab7273e1aea3c89ccc9a9cc489",
+            "revision": "e24f485414aeafb646f6fca458b0bf869c0880a1",
             "packages": [
                 "unix"
             ]

@@ -27,9 +27,6 @@
         "github.com/markbates/grift": {
             "branch": "master"
         },
-        "github.com/markbates/hmax": {
-            "branch": "master"
-        },
         "github.com/markbates/pop": {
             "branch": "master"
         },
