@@ -30,12 +30,13 @@ ENV GOPATH /root
 RUN mkdir -p $GOPATH/bin
 RUN go version
 RUN go get github.com/gobuffalo/buffalo/...
-RUN go get github.com/golang/dep/...
-EXPOSE 3000
 ENV SESSION_SECRET 99bottlesOfb33rOnTheWa119tyNineB0ttlesOfB33r!
 ENV GO_ENV production
 RUN go get -t -u -v github.com/gobuffalo/buffalo/...
 RUN go get -t -u -v github.com/markbates/grift/...
 ADD . /root/src/github.com/gopheracademy/learn
 WORKDIR /root/src/github.com/gopheracademy/learn
-CMD ["./run.sh"]
+RUN npm i
+RUN buffalo build -o bin/learn
+EXPOSE 3000
+CMD ["/root/src/github.com/gopheracademy/learn/bin/learn"]
